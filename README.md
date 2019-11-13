@@ -5,7 +5,7 @@ A GitHub Action to package the Grey Matter Helm Charts and publish them to Nexus
 ## Usage
 
 ```yaml
-- uses: chrisbsmith/greymatter-helm-action@master
+- uses: deciphernow/greymatter-helm-action@master
   with:
     NEXUS_URL: '<nexus_url>'
     NEXUS_USER: '<nexus_user>'

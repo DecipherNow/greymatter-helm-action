@@ -35,7 +35,7 @@ if [[ -f "$TARGET/Chart.yaml" ]]; then
 	echo "Packaging $chart from $TARGET"
 	helm package "$TARGET"
   echo "Publishing $chart to Nexus"
-  pkg=$(ls "*.tgz")
+  pkg=$(ls "/github/workspace/*.tgz")
   curl -u "$NEXUS_USER":"$NEXUS_PASS" "$NEXUS_URL" -T "$pkg"
 	exit $?
 else

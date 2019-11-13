@@ -13,15 +13,15 @@ function verifyParameters() {
     echo "Set a target eg './greymatter', '*'"
     exit 1
   fi
-  if [[ -z "$NEXUS_URL" ]]; then
+  if [[ -z "$INPUT_NEXUS_URL" ]]; then
     echo "The Nexus URL needs to be defined"
     exit 1
   fi
-    if [[ -z "$NEXUS_USER" ]]; then
+    if [[ -z "$INPUT_NEXUS_USER" ]]; then
     echo "The Nexus User needs to be defined"
     exit 1
   fi
-  if [[ -z "$NEXUS_PASS" ]]; then
+  if [[ -z "$INPUT_NEXUS_PASS" ]]; then
     echo "The Nexus Password needs to be defined"
     exit 1
   fi
@@ -36,7 +36,7 @@ if [[ -f "$TARGET/Chart.yaml" ]]; then
 	helm package "$TARGET"
   echo "Publishing $chart to Nexus"
   pkg=$(ls *.tgz)
-  curl -u "$NEXUS_USER":"$NEXUS_PASS" "$NEXUS_URL" -T "$pkg"
+  curl -u "$INPUT_NEXUS_USER":"$INPUT_NEXUS_PASS" "$INPUT_NEXUS_URL" -T "$pkg"
 	exit $?
 else
   echo "No chart found for $TARGET"

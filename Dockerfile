@@ -10,9 +10,9 @@ LABEL "com.github.actions.description"="Action for packaging and publishing the 
 ARG K8S_VERSION=v1.16.2
 ARG HELM_VERSION=v2.15.1
 ENV HELM_HOME=/usr/local/helm
-ENV NEXUS_URL https://nexus.com
-ENV NEXUS_USER username
-ENV NEXUS_PASS password
+ENV INPUT_NEXUS_URL https://nexus.com
+ENV INPUT_NEXUS_USER username
+ENV INPUT_NEXUS_PASS password
 
 RUN apk -v --update --no-cache add \
   ca-certificates \

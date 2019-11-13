@@ -9,6 +9,7 @@ LABEL "com.github.actions.description"="Action for packaging and publishing the 
 
 ARG K8S_VERSION=v1.16.2
 ARG HELM_VERSION=v2.15.1
+ENV HELM_HOME=/usr/local/helm
 ENV NEXUS_URL https://nexus.com
 ENV NEXUS_USER username
 ENV NEXUS_PASS password
@@ -25,7 +26,7 @@ RUN wget -q http://storage.googleapis.com/kubernetes-helm/helm-${HELM_VERSION}-l
 
 RUN helm init --client-only
 
-COPY ./entrypoint.sh /usr/bin/helm-package
+COPY ./entrypoint.sh /usr/bin/entrypoint
 
 ENTRYPOINT ["entrypoint"]
 CMD ["help"]

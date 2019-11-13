@@ -27,5 +27,5 @@ RUN helm init --client-only
 
 COPY ./entrypoint.sh /usr/bin/helm-package
 
-ENTRYPOINT ["entrypoin"]
+ENTRYPOINT ["entrypoint"]
 CMD ["help"]

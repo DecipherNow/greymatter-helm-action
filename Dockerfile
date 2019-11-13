@@ -6,6 +6,8 @@ LABEL "version"="0.1.0"
 
 LABEL "com.github.actions.name"="Grey Matter Helm Package"
 LABEL "com.github.actions.description"="Action for packaging and publishing the Grey Matter Helm Charts"
+LABEL "com.github.actions.color"="green"
+LABEL "com.github.actions.icon"="package"
 
 ARG K8S_VERSION=v1.16.2
 ARG HELM_VERSION=v2.15.1

@@ -29,10 +29,10 @@ verifyParameters
 
 if [[ -f "$TARGET/Chart.yaml" ]]; then
 	chart=$(basename "$TARGET")
-  # If we are packaging the Grey Matter chart, we need to get the requirements from Nexus
-  if [[ "$chart" == "greymatter" ]]; then
+  # If we are packaging a parent chart, we need to get the requirements from Nexus
+  if [[ "$chart" == "greymatter" ]] || [[ "$chart" == "fabric" ]] || [[ "$chart" == "data" ]] || [[ "$chart" == "sense" ]] ; then
     helm repo add decipher "$INPUT_NEXUS_URL" --username "$INPUT_NEXUS_USER" --password "$INPUT_NEXUS_PASS"
-    helm dependency update greymatter
+    helm dependency update "$TARGET"
   fi
 	echo "Packaging $chart from $TARGET"
 	helm package "$TARGET"

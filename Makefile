@@ -1,5 +1,6 @@
 export ROOT_DIR=$(CURDIR)
-export DOCKER_REPO=chrismith
+export DOCKER_REPO=deciphernow
+export HELM_VERSION=v3.1.1
 
 include ./docker.mk
 include ./help.mk

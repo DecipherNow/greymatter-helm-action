@@ -16,10 +16,6 @@ function verifyParameters() {
     echo "The Nexus URL needs to be defined"
     exit 1
   fi
-  if [[ -z "$INPUT_NEXUS_REPO" ]]; then
-    echo "The Nexus REPO needs to be defined"
-    exit 1
-  fi
   if [[ -z "$INPUT_NEXUS_USER" ]]; then
     echo "The Nexus User needs to be defined"
     exit 1
@@ -50,9 +46,9 @@ if [[ -f "$TARGET/Chart.yaml" ]]; then
   if [ "${PUBLISH}" = true ]; then
     echo "Publishing $chart to Nexus"
     pkg=$(ls $chart*.tgz)
-    code=$(curl -s -w %{http_code} -u "${INPUT_NEXUS_USER}":"${INPUT_NEXUS_PASS}" "${INPUT_NEXUS_URL}/${INPUT_NEXUS_REPO}/" -T "$pkg")
+    code=$(curl -s -w %{http_code} -u "${INPUT_NEXUS_USER}":"${INPUT_NEXUS_PASS}" "${INPUT_NEXUS_URL}" -T "$pkg")
     if [ "${code}" -ne "200" ]; then
-      echo "Failed to upload ${TARGET} to ${INPUT_NEXUS_URL}/${INPUT_NEXUS_REPO}."
+      echo "Failed to upload ${TARGET} to ${INPUT_NEXUS_URL}."
       exit 1
     fi
     exit 0

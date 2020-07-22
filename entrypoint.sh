@@ -23,10 +23,6 @@ function verifyParameters() {
     echo "The Nexus Password needs to be defined"
     exit 1
   fi
-  # if [[ -z "$INPUT_PUBLISH" ]]; then
-  #   echo "The PUBLISH veraible needs to be defined"
-  #   exit 1
-  # fi
   return
 }
 
@@ -43,16 +39,14 @@ if [[ -f "$TARGET/Chart.yaml" ]]; then
 	echo "Packaging $chart from ${TARGET}"
 	helm package "${TARGET}"
 
-  # if [ "${INPUT_PUBLISH}" = true ]; then
-    echo "Publishing $chart to Nexus"
-    pkg=$(ls $chart*.tgz)
-    code=$(curl -s -w %{http_code} -u "${INPUT_NEXUS_USER}":"${INPUT_NEXUS_PASS}" "${INPUT_NEXUS_URL}/" -T "$pkg")
-    if [ "${code}" -ne "200" ]; then
-      echo "Failed to upload ${TARGET} to ${INPUT_NEXUS_URL}."
-      exit 1
-    fi
-    exit 0
-  # fi
+  echo "Publishing $chart to Nexus"
+  pkg=$(ls $chart*.tgz)
+  code=$(curl -s -w %{http_code} -u "${INPUT_NEXUS_USER}":"${INPUT_NEXUS_PASS}" "${INPUT_NEXUS_URL}/" -T "$pkg")
+  if [ "${code}" -ne "200" ]; then
+    echo "Failed to upload ${TARGET} to ${INPUT_NEXUS_URL}."
+    exit 1
+  fi
+  exit 0
 else
   echo "No chart found for $TARGET"
   exit 1

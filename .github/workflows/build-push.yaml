@@ -19,4 +19,4 @@ jobs:
           repository: deciphernow/helm-packager
           build_args: HELM_VERSION=v3.2.4
           push: true
-          tags: 3.2.4,latest
+          tags: 3.2.4-1,latest

@@ -5,7 +5,6 @@ TARGET=$1
 set -xeuo pipefail
 
 # Default the publish variable to false.
-PUBLISH=false
 
 function verifyParameters() {
   if [[ -z "$TARGET" ]]; then
@@ -24,9 +23,10 @@ function verifyParameters() {
     echo "The Nexus Password needs to be defined"
     exit 1
   fi
-  if [[ -z "$INPUT_PUBLISH" ]]; then
-    export PUBLISH=${INPUT_PUBLISH}
-  fi
+  # if [[ -z "$INPUT_PUBLISH" ]]; then
+  #   echo "The PUBLISH veraible needs to be defined"
+  #   exit 1
+  # fi
   return
 }
 
@@ -43,7 +43,7 @@ if [[ -f "$TARGET/Chart.yaml" ]]; then
 	echo "Packaging $chart from ${TARGET}"
 	helm package "${TARGET}"
 
-  if [ "${PUBLISH}" = true ]; then
+  # if [ "${INPUT_PUBLISH}" = true ]; then
     echo "Publishing $chart to Nexus"
     pkg=$(ls $chart*.tgz)
     code=$(curl -s -w %{http_code} -u "${INPUT_NEXUS_USER}":"${INPUT_NEXUS_PASS}" "${INPUT_NEXUS_URL}" -T "$pkg")
@@ -52,7 +52,7 @@ if [[ -f "$TARGET/Chart.yaml" ]]; then
       exit 1
     fi
     exit 0
-  fi
+  # fi
 else
   echo "No chart found for $TARGET"
   exit 1

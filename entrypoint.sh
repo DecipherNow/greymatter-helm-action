@@ -43,8 +43,12 @@ if [[ -f "$TARGET/Chart.yaml" ]]; then
 	helm package "${TARGET}"
   echo "Publishing $chart to Nexus"
   pkg=$(ls $chart*.tgz)
-  curl -vv -u "${INPUT_NEXUS_USER}":"${INPUT_NEXUS_PASS}" "${INPUT_NEXUS_URL}/${INPUT_NEXUS_REPO}/" -T "$pkg"
-	exit $?
+  code=$(curl -s -w %{http_code} -u "${INPUT_NEXUS_USER}":"${INPUT_NEXUS_PASS}" "${INPUT_NEXUS_URL}/${INPUT_NEXUS_REPO}/" -T "$pkg")
+	if [ "${code}" -ne "200" ]; then
+    echo "Failed to upload ${TARGET} to ${INPUT_NEXUS_URL}/${INPUT_NEXUS_REPO}."
+    exit 1
+  fi
+  exit 0
 else
   echo "No chart found for $TARGET"
   exit 1

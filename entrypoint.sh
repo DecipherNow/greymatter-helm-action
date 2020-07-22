@@ -46,7 +46,7 @@ if [[ -f "$TARGET/Chart.yaml" ]]; then
   # if [ "${INPUT_PUBLISH}" = true ]; then
     echo "Publishing $chart to Nexus"
     pkg=$(ls $chart*.tgz)
-    code=$(curl -s -w %{http_code} -u "${INPUT_NEXUS_USER}":"${INPUT_NEXUS_PASS}" "${INPUT_NEXUS_URL}" -T "$pkg")
+    code=$(curl -s -w %{http_code} -u "${INPUT_NEXUS_USER}":"${INPUT_NEXUS_PASS}" "${INPUT_NEXUS_URL}/" -T "$pkg")
     if [ "${code}" -ne "200" ]; then
       echo "Failed to upload ${TARGET} to ${INPUT_NEXUS_URL}."
       exit 1

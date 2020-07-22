@@ -1,4 +1,4 @@
-FROM alpine:3.10
+FROM alpine:3.12
 
 LABEL "name"="greymatter-helm-action"
 LABEL "maintainer"="sres@deciphernow.com"
@@ -10,9 +10,10 @@ LABEL "com.github.actions.color"="green"
 LABEL "com.github.actions.icon"="package"
 
 ARG K8S_VERSION=v1.16.2
-ARG HELM_VERSION=v3.1.1
+ARG HELM_VERSION=v3.2.4
 ENV HELM_HOME=/usr/local/helm
 ENV INPUT_NEXUS_URL https://nexus.com
+ENV INPUT_NEXUS_REPO development
 ENV INPUT_NEXUS_USER username
 ENV INPUT_NEXUS_PASS password
 
@@ -28,10 +29,10 @@ RUN wget -q https://get.helm.sh/helm-${HELM_VERSION}-linux-amd64.tar.gz -O - | t
   chmod +x /usr/local/bin/helm
 
 # for versions 2 or below use
-# RUN helm init -c 
+# RUN helm init -c
 # RUN helm init
 
-RUN if [ "$(echo $HELM_VERSION | awk -F "." '{ print $1 }')" == "v2" ]; then helm init -c ; else helm init ; fi
+# RUN if [ "$(echo $HELM_VERSION | awk -F "." '{ print $1 }')" == "v2" ]; then helm init -c ; else helm init ; fi
 
 COPY ./entrypoint.sh /usr/bin/entrypoint
 
